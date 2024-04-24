@@ -1,0 +1,30 @@
+# Variational Autoencoder (NN) Configuration
+loss_fun: cross_entropy
+num_classes: 10
+
+# Classification network
+# Keep in mind every time the input-output dimensions!
+# For more information check: https://pytorch.org/docs/stable/nn.html
+classifier:
+  # [from, number, module, args]
+  [
+    [-1, 1, Conv2d, [3, 32, 3, 1, 1]],
+    [-1, 1, BatchNorm2d, [32]],
+    [-1, 1, LeakyReLU, []],
+
+    [-1, 1, MaxPool2d, [2]],
+
+    [-1, 1, Conv2d, [32, 32, 3, 1, 1]],
+    [-1, 1, BatchNorm2d, [32]],
+    [-1, 1, LeakyReLU, []],
+
+    [-1, 1, MaxPool2d, [2]],
+
+    [-1, 1, Flatten, []],
+
+    [-1, 1, Linear, [2048, 512]],
+    [-1, 1, BatchNorm1d, [512]],
+    [-1, 1, LeakyReLU, []],
+
+    [-1, 1, Linear, [512, 10]]
+  ]
