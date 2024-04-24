@@ -2,18 +2,16 @@ model:
   config: "nn/model/deep_classification.yml"
   save_dir:
 
+# Read for more: https://pytorch.org/vision/main/datasets.html
 data:
   dataset: "CIFAR10"
   val_split: 0.2
-  train_batch_size: 32
+  train_batch_size: [128,32,2048]
   val_batch_size: 128
   test_batch_size: 128
-  num_workers: 8
+  num_workers: 7
   train_transform:
     [
-      [ RandomHorizontalFlip, [] ],
-      [ RandomRotation, [ 30 ] ],
-      [ ColorJitter, [ 0.2, 0.2, 0.2, 0.1 ] ],
       [ Resize, [ [32, 32] ] ],
       [ ToTensor, [] ],
       [ Normalize, [ [0.5, 0.5, 0.5], [0.5, 0.5, 0.5] ] ],
@@ -26,7 +24,7 @@ data:
     ]
 
 trainer:
-  max_epochs: 250
+  max_epochs: 5
   optimizer:
     type: Adam
     args:
